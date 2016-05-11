@@ -1,2 +1,5 @@
-import test
-test.getweather()
+from test import getweather
+
+
+def jiang():
+	getweather()

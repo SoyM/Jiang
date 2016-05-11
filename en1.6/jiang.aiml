@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+
+<category>
+	<pattern>TIME</pattern>
+	<template>
+		Jgettime
+	</template>
+</category>
+
+<category>
+	<pattern>START TIMED</pattern>
+	<template>
+		Jstarttimed
+	</template>
+</category>
+
+<category>
+    <pattern>计时</pattern>
+    <template>
+        <srai>START TIMED<star/></srai>
+    </template>
+</category>
+
+<category>
+    <pattern>JISHI</pattern>
+    <template>
+        <srai>START TIMED<star/></srai>
+    </template>
+</category>
+
+<category>
+	<pattern>WEATHER</pattern>
+	<template>
+		Jgetweather
+	</template>
+</category>
+
+</aiml>

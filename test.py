@@ -2,7 +2,6 @@
 # -*- coding:utf8 -*-
 import time
 import sys
-import threading
 
 
 def gettime():
