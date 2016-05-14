@@ -6,61 +6,46 @@ import re
 import threading
 
 
-def thread1():
-    from temp1 import jiang
-    jiang()
-def thread2():
-    from temp2 import jiang
-    jiang()
-def thread3():
-    from temp3 import jiang
-    jiang()
-k = Kernel()
-k.bootstrap(learnFiles=["en1.6/jiang.aiml", "self-test.aiml"])
-mutex = threading.Lock()
-# Run an interactive interpreter
-print "\nEntering interactive mode (ctrl-c to exit)"
-i = 1
-while True:
-    jiang = k.respond(raw_input("> "))
-    if re.match("J", jiang):
-        jiang = jiang[1:]
-        t = "t"+str(i)
-        if t == 't1':
-            file = open("temp1.py", "w")
-            file.write("from test import " + jiang + "\n\n\ndef jiang():\n"+"\t" + jiang + "()\n")
-            # file = open("temp1.py", "r")
+class MyThread(threading.Thread):
+    def __init__(self, jiang):
+        threading.Thread.__init__(self)
+        self.jiang = jiang
+
+    def run(self):
+        # print "I am %s" % self.name
+        if re.match("J", self.jiang):
+            self.jiang = self.jiang[1:]
+            import temp
+            file = open("temp.py", "w")
+            file.write("from test import " + self.jiang + "\n\n\ndef jiang():\n"+"\t" + self.jiang + "()\n")
+            # file = open("temp.py", "r")
             file.close()
-            mutex.acquire()
-            t = threading.Thread(target=thread1, name='t' + str(i))
-            t.setDaemon(False)
-            t.start()
-            mutex.release()
-        elif t == 't2':
-            file = open("temp2.py", "w")
-            file.write("from test import " + jiang + "\n\n\ndef jiang():\n"+"\t" + jiang + "()\n")
-            # file = open("temp2.py", "r")
-            file.close()
-            mutex.acquire()
-            t = threading.Thread(target=thread2, name='t' + str(i))
-            t.setDaemon(False)
-            t.start()
-            mutex.release()
-        elif t == 't3':
-            file = open("temp3.py", "w")
-            file.write("from test import " + jiang + "\n\n\ndef jiang():\n"+"\t" + jiang + "()\n")
-            # file = open("temp3.py", "r")
-            file.close()
-            t = threading.Thread(target=thread3, name='t' + str(i))
-            t.setDaemon(False)
-            t.start()
-        print(t.isAlive())
-        print "current has %d threads" % (threading.activeCount() - 1)
+            reload(temp)
+            temp.jiang()
+        else:
+            print(self.jiang)
+
+
+if __name__ == "__main__":
+    k = Kernel()
+    k.bootstrap(learnFiles=["en1.6/jiang.aiml", "self-test.aiml"])
+    lock = threading.Lock()
+    print "\nEntering interactive mode (ctrl-c to exit)"
+    i = 0
+    while True:
+        jiang = k.respond(raw_input("> "))
+        my_thread = MyThread(jiang=jiang)
+        my_thread.start()
+
+        # print "current has %d threads" % (threading.activeCount())
         ThA = threading.enumerate()
         for d in range(len(ThA)):
             print ThA[d]
+        i += 1
+        print i
 
-    else:
-        print(jiang)
+
+
+
 
 

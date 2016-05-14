@@ -1,5 +1,5 @@
-from test import getweather
+from test import gettime
 
 
 def jiang():
-	getweather()
+	gettime()

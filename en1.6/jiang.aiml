@@ -36,4 +36,18 @@
 	</template>
 </category>
 
+<category>
+	<pattern>CHROME</pattern>
+	<template>
+		Jopenchrome
+	</template>
+</category>
+
+<category>
+	<pattern>L</pattern>
+	<template>
+		Jverifycampus
+	</template>
+</category>
+
 </aiml>

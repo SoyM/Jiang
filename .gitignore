@@ -25,12 +25,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-
-.idea/.name
-.idea/misc.xml
-.idea/pyAIML-master.iml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/encodings.xml
-.idea/workspace.xml
-SUPPORTED_TAGS.txt
